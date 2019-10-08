@@ -24,7 +24,7 @@ namespace big_sister_base
         }
 
         public Cart Cart { get => cart; private set => cart = value; }
-
+        public List<Product> ShopList { get => shopList; set => shopList = value; }
 
         public void Generatelist()
         {

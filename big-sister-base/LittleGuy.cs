@@ -161,6 +161,12 @@ namespace big_sister_base
             Console.WriteLine("ProductChecked");
             Thread.Sleep(2000);
         }
+        public void OnCheckSL(object source, EventArgs e)
+        {
+            Thread.Sleep(2000);
+            Console.WriteLine("cart checked");
+            Thread.Sleep(2000);
+        }
         public override string ToString()
         {
             string printString = "shopping list:\n\n";

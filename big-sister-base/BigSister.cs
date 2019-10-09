@@ -7,7 +7,7 @@ namespace big_sister_base
     public class BigSister
     {
 
-        public static List<string> recipe = new List<string>(){
+        /*public static List<string> recipe = new List<string>(){
             "Láminas de Lasaña",
             "Queso Rallado Parmesano",
             "Carne Molida",
@@ -20,12 +20,17 @@ namespace big_sister_base
             "Pimienta",
             "Leche Entera",
             "Harina"
-        };
+        };*/
         //Evento de LogIn: Se debe publicar cada vez que se realiza un login
         //1- Definir delegate
         public delegate void CheckProductEventHandler(object source, EventArgs args);
-        //2- Definir el evento en base al delegate anterior
+        
         public event CheckProductEventHandler ProductCheck;
+        public delegate void CheckSLEventHandler(object source, EventArgs args);
+
+        public event CheckSLEventHandler CheckSL;
+
+
         //3- Publicar el evento: Se define el metodo OnLoggedIn(). Por convencion es protected y virtual.
 
         //Evento de RequestChangePassword: Se debe publicar cada vez que se realiza un request para cambiar la contraseña
@@ -46,7 +51,7 @@ namespace big_sister_base
         //3- Publicar el evento: Se define el metodo OnChangingPassword()
         */
 
-        public void CheckP(Product p,LittleGuy pherb)
+        public bool CheckP(Product p,LittleGuy pherb)
         {
             //Cada vez que se inicie sesion se debe enviar un mail.
             Console.WriteLine("The Product inserted was: " + p.Name );
@@ -55,19 +60,50 @@ namespace big_sister_base
                 if (p.Stock == 1)
                 {
                   OnProductCheck();
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("The product added is not part of the shopping list");
+                    Console.WriteLine("Product was not added");
+                    return false;
                 }
                 
             }
             else
             {
                 Console.WriteLine("The Product is not part of the store");
+                return false;
             }
             
            
+        }
+        public bool CheckS(List<Product> L, LittleGuy pherb)
+        {
+            int Counter = 0;
+            for (int i = 0; i < L.Count; i++)
+            {
+                if (L[i].Stock == 0)
+                {
+                    Counter += 0;
+                }
+                else
+                {
+                    Counter += 1;
+                }
+            }
+            if (Counter == 0)
+            {
+                OnCheckSL();
+                Console.WriteLine("Big sister is satisfied with your selection");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Big sister is not happy with your cart");
+                return false;
+            }
+
         }
         protected virtual void OnProductCheck()
         {
@@ -76,6 +112,15 @@ namespace big_sister_base
             {
                 //3.2- Se dispara el evento. La fuente es este objeto y EventArgs.Empty ya que no queremos pasar parametros adicionales
                 ProductCheck(this, EventArgs.Empty);
+            }
+        }
+        protected virtual void OnCheckSL()
+        {
+            //3.1- Revisar si existen suscriptores
+            if (CheckSL != null)
+            {
+                //3.2- Se dispara el evento. La fuente es este objeto y EventArgs.Empty ya que no queremos pasar parametros adicionales
+                CheckSL(this, EventArgs.Empty);
             }
         }
         /*public void RequestChangePassword()

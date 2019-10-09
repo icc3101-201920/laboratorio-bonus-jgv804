@@ -13,6 +13,7 @@ namespace big_sister_base
             
             bool continueCycle = true;
             bigSister.ProductCheck += littleGuy.OnProductCheck;
+            bigSister.CheckSL += littleGuy.OnCheckSL;
             while (continueCycle)
             {
                 Console.Clear();
@@ -42,11 +43,15 @@ namespace big_sister_base
                             if (market.Storage[index].Stock > 0)
                             {
 
-                                Console.WriteLine(littleGuy.ToString());
-                                
-                                bigSister.CheckP(littleGuy.ShopList[index],littleGuy);
-                                littleGuy.AddProduct(market.Storage[index]);
-                                market.removeStorage(index);
+                                /*Console.WriteLine(littleGuy.ToString());*/
+
+                                if (bigSister.CheckP(littleGuy.ShopList[index], littleGuy))
+                                {
+                                    littleGuy.AddProduct(market.Storage[index]);
+                                    littleGuy.ShopList[index].Stock = 0;
+                                    market.removeStorage(index);
+                                }
+                               
                                 Console.ReadKey();
                             }
                             else
@@ -59,7 +64,7 @@ namespace big_sister_base
                     case "3":
                         Console.Clear();
                         littleGuy.ViewCart();
-                        Console.WriteLine(littleGuy.ToString());
+                        //Console.WriteLine(littleGuy.ToString());//
                         Console.WriteLine("\n\nPresiona ENTER para volver al supermercado...");
                         ConsoleKeyInfo response = Console.ReadKey(true);
                         while (response.Key != ConsoleKey.Enter)
@@ -69,10 +74,14 @@ namespace big_sister_base
                         break;
                     case "4":
                         Console.Clear();
-                        littleGuy.Pay();
-                        littleGuy.SaveData();
-                        market.SaveStorage();
-                        continueCycle = false;
+                        if (bigSister.CheckS(littleGuy.ShopList,littleGuy))
+                        {
+                            littleGuy.Pay();
+                            littleGuy.SaveData();
+                            market.SaveStorage();
+                            continueCycle = false;
+                        }
+                      
                         break;
                     case "5":
                         Console.Clear();

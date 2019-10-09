@@ -155,5 +155,20 @@ namespace big_sister_base
             formatter.Serialize(fs, shopList);
             fs.Close();
         }
+        public void OnProductCheck(object source, EventArgs e)
+        {
+            Thread.Sleep(2000);
+            Console.WriteLine("ProductChecked");
+            Thread.Sleep(2000);
+        }
+        public override string ToString()
+        {
+            string printString = "shopping list:\n\n";
+            foreach (Product p in shopList)
+            {
+                printString += p.tostring2() + "\n";
+            }
+            return printString;
+        }
     }
 }

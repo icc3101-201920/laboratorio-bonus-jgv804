@@ -33,7 +33,7 @@ namespace big_sister_base
         //1- Definir el evento con EventHandler<>, ademas enviaremos la hora en que se solicitó.
         //1.1- Definiremos una nueva clase llamada RequestEventArgs que tendrá los datos que queremos pasar. Esta hereda de EventArgs
         //1.2- Se define el evento con la clase recien creada y EventHandler
-        public event EventHandler<RequestEventArgs> ChangePasswordRequested;
+        /*public event EventHandler<RequestEventArgs> ChangePasswordRequested;
         //3- Publicar el evento: Se define el metodo OnChangePasswordRequested()
 
         //Evento de ChangingPassword: Se debe publicar cada vez que se realiza un intento para cambiar la contraseña
@@ -44,13 +44,13 @@ namespace big_sister_base
         //2- Definir el evento en base al delegate anterior
         public event ChangingPasswordEventHandler ChangingPassword;
         //3- Publicar el evento: Se define el metodo OnChangingPassword()
-
+        */
 
         public void CheckP(Product p,LittleGuy pherb)
         {
             //Cada vez que se inicie sesion se debe enviar un mail.
             Console.WriteLine("The Product inserted was: " + p.Name );
-            if (pherb.ShopList.contains(p))
+            if (pherb.ShopList.Contains(p))
             {
                 if (p.Stock == 1)
                 {
@@ -64,7 +64,7 @@ namespace big_sister_base
             }
             else
             {
-                Console.WriteLine("The Product us not part of the store");
+                Console.WriteLine("The Product is not part of the store");
             }
             
            
@@ -78,7 +78,7 @@ namespace big_sister_base
                 ProductCheck(this, EventArgs.Empty);
             }
         }
-        public void RequestChangePassword()
+        /*public void RequestChangePassword()
         {
             //Cada vez que solicite cambio de contraseña debe enviar un mail y sms
             Console.WriteLine("User requesting to change his/her password");
@@ -131,7 +131,7 @@ namespace big_sister_base
                 _success = ChangingPassword(this, new ChangingPasswordEventArgs() { NewPass = newPass, NewPassConf = newPassConf });
             }
             return _success;
-        }
+        }*/
     }
 
 }

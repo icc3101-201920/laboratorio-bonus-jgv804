@@ -29,5 +29,9 @@ namespace big_sister_base
         {
             return $"{Name}\n\tPrecio: ${Price}\t{Unit}";
         }
+        public string tostring2()
+        {
+            return $"{Name}\n\tPrecio: ${Price}\t{Unit}\t{Stock}";
+        }
     }
 }

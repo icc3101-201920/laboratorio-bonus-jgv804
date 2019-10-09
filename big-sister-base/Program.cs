@@ -9,8 +9,10 @@ namespace big_sister_base
         {
             LittleGuy littleGuy = new LittleGuy();
             Market market = new Market();
-            BigSister bigsister = new BigSister();
+            BigSister bigSister = new BigSister();
+            
             bool continueCycle = true;
+            bigSister.ProductCheck += littleGuy.OnProductCheck;
             while (continueCycle)
             {
                 Console.Clear();
@@ -29,6 +31,7 @@ namespace big_sister_base
                     case "2":
                         Console.Clear();
                         Console.WriteLine("¿Que deseas comprar? (-1 para cancelar)\n\n");
+
                         for (int i = 0; i < market.Storage.Count; i++)
                         {
                             Console.WriteLine($"[{i}] " + market.Storage[i].ToString() + $"\t Stock:{market.Storage[i].Stock}");
@@ -38,9 +41,13 @@ namespace big_sister_base
                         {
                             if (market.Storage[index].Stock > 0)
                             {
+
+                                Console.WriteLine(littleGuy.ToString());
                                 
+                                bigSister.CheckP(littleGuy.ShopList[index],littleGuy);
                                 littleGuy.AddProduct(market.Storage[index]);
                                 market.removeStorage(index);
+                                Console.ReadKey();
                             }
                             else
                             {
@@ -52,6 +59,7 @@ namespace big_sister_base
                     case "3":
                         Console.Clear();
                         littleGuy.ViewCart();
+                        Console.WriteLine(littleGuy.ToString());
                         Console.WriteLine("\n\nPresiona ENTER para volver al supermercado...");
                         ConsoleKeyInfo response = Console.ReadKey(true);
                         while (response.Key != ConsoleKey.Enter)

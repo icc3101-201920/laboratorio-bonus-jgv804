@@ -167,7 +167,7 @@ namespace big_sister_base
             Console.WriteLine("cart checked");
             Thread.Sleep(2000);
         }
-        public override string ToString()
+        /*public override string ToString()
         {
             string printString = "shopping list:\n\n";
             foreach (Product p in shopList)
@@ -175,6 +175,6 @@ namespace big_sister_base
                 printString += p.tostring2() + "\n";
             }
             return printString;
-        }
+        }*/
     }
 }
